@@ -3,10 +3,10 @@
 
 ## 技术栈
 
-语言：Go、TypeScript
-打包工具：wails
-前端框架：Vue
-UI 库：Navie-UI
+- 语言：Go、TypeScript
+- 打包工具：wails
+- 前端框架：Vue
+- UI 库：Navie-UI
 
 ## 使用方式
 
