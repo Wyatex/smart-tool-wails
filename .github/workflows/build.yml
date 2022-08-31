@@ -3,13 +3,33 @@ on:
   push:
     branches: [ master ]
 jobs:
-  Lint:
+  Build:
    runs-on: windows-latest
    steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
-      - uses: dAppServer/wails-build-action@v2
+      - name: Setup GoLang
+        uses: actions/setup-go@v2
         with:
-          build-name: smart-tool
-          build-platform: windows/amd64
+          go-version: 1.18
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: latest
+      - name: Install Wails
+        run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+        shell: bash
+      - name: Build App
+        run: wails build
+        shell: bash
+      - uses: actions/upload-artifact@v3
+        with:
+          name: smart-tool
+          path: build/bin/smart-tool.exe
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/bin/smart-tool.exe
