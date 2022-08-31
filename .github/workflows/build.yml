@@ -1,7 +1,8 @@
 name: CI
 on:
   push:
-    branches: [ master ]
+    tags:
+      - "v*.*.*"
 jobs:
   Build:
    runs-on: windows-latest
