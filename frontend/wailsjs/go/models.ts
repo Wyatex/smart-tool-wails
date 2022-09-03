@@ -1,17 +1,17 @@
 export namespace main {
 	
-	export class Item {
-	    label: string;
-	    value: string;
+	export class LoadReturn {
+	    err: string;
+	    data: string;
 	
 	    static createFrom(source: any = {}) {
-	        return new Item(source);
+	        return new LoadReturn(source);
 	    }
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.label = source["label"];
-	        this.value = source["value"];
+	        this.err = source["err"];
+	        this.data = source["data"];
 	    }
 	}
 

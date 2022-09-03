@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@iconify/json": "^2.1.100",
+    "axios": "^0.27.2",
     "naive-ui": "^2.33.1",
     "pinia": "^2.0.21",
     "unocss": "^0.45.13",

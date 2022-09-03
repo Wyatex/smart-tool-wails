@@ -1,34 +1,59 @@
 import { createPinia, defineStore } from 'pinia'
-import { ref } from 'vue'
-import { main } from '../../wailsjs/go/models'
-import { GetList } from '../../wailsjs/go/main/App'
+import { ref, watchEffect } from 'vue'
 
 export const store = createPinia()
 
 export const useStore = defineStore('global', () => {
-  const count = ref(0)
   const darkTheme = ref(false)
-  const items = ref<main.Item[]>([])
-  const showModal = ref(false)
-  const modalTitle = ref('')
-  const formData = ref<main.Item>({
+  const data = ref<Category[]>([])
+  const itemModal = ref({
+    isShow: false,
+    title: '',
+    formData: {
+      label: '',
+      value: '',
+    },
+    prevLabel: '', // 用来对比是否已修改和是否已存在
+    prevValue: '', // 用来对比是否已修改
+    cate: '', // 针对哪个分类
+  })
+  const cateModal = ref({
+    isShow: false,
+    title: '',
     label: '',
-    value: '',
+    prevLabel: '',
+  })
+  const searchModal = ref<{
+    input: string,
+    result: Item[]
+  }>({
+    input: '',
+    result: []
   })
   // 加载数据
-  const update = async () => {
-    const list = await GetList()
-    items.value = list
-    console.log('获取到的列表：', items.value)
+  const getData = () => {
+    try {
+      const storageData = window.localStorage.getItem('data')
+      if (!storageData) {
+        data.value = []
+        return
+      }
+      const jsonParse = JSON.parse(storageData)
+      data.value = jsonParse
+    } catch (e) {}
+    console.log('获取到的列表：', data.value)
   }
-  update()
+  getData()
+  watchEffect(() => {
+    // 修改data后会立刻保存
+    window.localStorage.setItem('data', JSON.stringify(data.value))
+  })
   return {
-    count,
     darkTheme,
-    items,
-    update,
-    showModal,
-    modalTitle,
-    formData,
+    itemModal,
+    cateModal,
+    searchModal,
+    data,
+    getData,
   }
 })

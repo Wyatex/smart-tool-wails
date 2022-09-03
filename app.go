@@ -2,12 +2,11 @@ package main
 
 import (
 	"context"
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"syscall"
+
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -15,31 +14,9 @@ type App struct {
 	ctx context.Context
 }
 
-type Item struct {
-	Label string `json:"label"`
-	Value string `json:"value"`
-}
-
-var myList []Item
-
-func init() {
-	myList = make([]Item, 0)
-	fp, err := os.OpenFile("./data.json", os.O_CREATE|os.O_RDWR, 0777)
-	if err != nil {
-		panic(err)
-	}
-	defer fp.Close()
-	bytes, err := ioutil.ReadAll(fp)
-	if err != nil {
-		panic(err)
-	}
-	if len(bytes) == 0 {
-		return
-	}
-	err = json.Unmarshal(bytes, &myList)
-	if err != nil {
-		panic(err)
-	}
+type LoadReturn struct {
+	Err  string `json:"err"`
+	Data string `json:"data"`
 }
 
 // NewApp creates a new App application struct
@@ -53,84 +30,50 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
-}
-
-func (a *App) GetList() []Item {
-	return myList
-}
-
-func (a *App) Add(item Item) string {
-	for _, v := range myList {
-		if v.Label == item.Label {
-			return "快捷方式已存在"
-		}
-	}
-	myList = append(myList, item)
-	err := save()
+// open some uri
+func (a *App) Open(value string) string {
+	defer func() {
+		_ = recover()
+	}()
+	cmd := exec.Command("cmd", "/C", "start", value)
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+	err := cmd.Run()
 	if err != nil {
 		return err.Error()
 	}
 	return ""
 }
 
-func (a *App) Del(name string) string {
-	i := 0
-	for _, v := range myList {
-		if v.Label != name {
-			myList[i] = v
-			i++
-		}
+func (a *App) Save(value string) string {
+	str, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
+		Title: "选择一个位置保存",
+	})
+	if err != nil {
+		return err.Error()
 	}
-	myList = myList[:i]
-	err := save()
+	err = os.WriteFile(str, []byte(value), 0777)
 	if err != nil {
 		return err.Error()
 	}
 	return ""
 }
 
-func (a *App) Edit(item Item) string {
-	for i := 0; i < len(myList); i++ {
-		if myList[i].Label == item.Label {
-			myList[i].Value = item.Value
-			break
+func (a *App) Load() LoadReturn {
+	str, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
+		Title: "选择已导出的文件",
+	})
+	if err != nil {
+		return LoadReturn{
+			Err: err.Error(),
 		}
 	}
-	err := save()
+	bytes, err := os.ReadFile(str)
 	if err != nil {
-		return err.Error()
-	}
-	return ""
-}
-
-func (a *App) Open(name string) string {
-	for _, v := range myList {
-		if v.Label == name {
-			defer func() {
-				_ = recover()
-			}()
-			cmd := exec.Command("cmd", "/C", "start", v.Value)
-			cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-			err := cmd.Run()
-			if err != nil {
-				return err.Error()
-			}
+		return LoadReturn{
+			Err: err.Error(),
 		}
 	}
-	return ""
-}
-
-func save() error {
-	data, err := json.Marshal(myList)
-	if err != nil {
-		return err
+	return LoadReturn{
+		Data: string(bytes),
 	}
-	err = os.WriteFile("./data.json", data, 0777)
-	if err != nil {
-		return err
-	}
-	return nil
 }

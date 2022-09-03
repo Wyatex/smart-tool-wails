@@ -1,11 +1,24 @@
 <script lang="ts" setup>
 import NaiveProvider from './components/NaiveProvider.vue'
-import CardList from './components/CardList.vue';
+import { useStore } from './store'
+import CategoryList from './components/CategoryList.vue'
+const store = useStore()
+
+// import CardList from './components/CardList.vue';
+// setTimeout(() => {
+//   store.data = [
+//     {
+//       label: '123',
+//       list: [],
+//     },
+//   ]
+// }, 1000)
 </script>
 
 <template>
   <naive-provider class="h-full">
-    <CardList />
+    <!-- <CardList /> -->
+    <category-list />
   </naive-provider>
 </template>
 

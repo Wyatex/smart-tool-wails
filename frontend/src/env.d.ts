@@ -20,4 +20,12 @@ declare global {
     $message: MessageProviderInst
     $notification: NotificationProviderInst
   }
+  interface Item {
+    label: string
+    value: string
+  }
+  interface Category {
+    label: string
+    list: Item[]
+  }
 }

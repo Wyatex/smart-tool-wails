@@ -7,8 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    CardList: typeof import('./src/components/CardList.vue')['default']
-    ItemModel: typeof import('./src/components/ItemModel.vue')['default']
+    CategoryCard: typeof import('./src/components/CategoryCard.vue')['default']
+    CategoryList: typeof import('./src/components/CategoryList.vue')['default']
+    CateModal: typeof import('./src/components/CateModal.vue')['default']
+    FloatBtn: typeof import('./src/components/FloatBtn.vue')['default']
+    HitokotoModal: typeof import('./src/components/hitokotoModal.vue')['default']
+    ItemCard: typeof import('./src/components/ItemCard.vue')['default']
+    ItemModal: typeof import('./src/components/ItemModal.vue')['default']
     NaiveProvider: typeof import('./src/components/NaiveProvider.vue')['default']
     NaiveProviderContent: typeof import('./src/components/NaiveProviderContent.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
@@ -16,8 +21,9 @@ declare module '@vue/runtime-core' {
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NDropdown: typeof import('naive-ui')['NDropdown']
+    NForm: typeof import('naive-ui')['NForm']
     NFormItem: typeof import('naive-ui')['NFormItem']
-    NH1: typeof import('naive-ui')['NH1']
+    NH2: typeof import('naive-ui')['NH2']
     NIcon: typeof import('naive-ui')['NIcon']
     NInput: typeof import('naive-ui')['NInput']
     NLayout: typeof import('naive-ui')['NLayout']
@@ -32,5 +38,7 @@ declare module '@vue/runtime-core' {
     NPopover: typeof import('naive-ui')['NPopover']
     NSpace: typeof import('naive-ui')['NSpace']
     NText: typeof import('naive-ui')['NText']
+    NTooltip: typeof import('naive-ui')['NTooltip']
+    SearchModal: typeof import('./src/components/SearchModal.vue')['default']
   }
 }
