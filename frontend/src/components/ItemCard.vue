@@ -1,17 +1,17 @@
 <template>
   <div>
-    <n-card hoverable embedded class="w-full" @contextmenu="handleContextMenu">
-      <div class="w-full flex">
-        <div class="flex-1 flex items-center justify-center">
-          <n-h4 class="m-0">{{ item.label }}</n-h4>
-        </div>
-        <n-button class="ml-4" quaternary circle @click="open(item.value)">
-          <template #icon>
-            <n-icon>
-              <arrow />
-            </n-icon>
-          </template>
-        </n-button>
+    <n-card
+      hoverable
+      embedded
+      class="w-full cursor-pointer"
+      @contextmenu="handleContextMenu"
+      @click="open(item.value)"
+    >
+      <div
+        class="w-full h-full flex-1 flex items-center justify-center"
+        
+      >
+        <n-h4 class="m-0">{{ item.label }}</n-h4>
       </div>
     </n-card>
     <n-dropdown

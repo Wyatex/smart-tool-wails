@@ -24,11 +24,11 @@ export const useStore = defineStore('global', () => {
     prevLabel: '',
   })
   const searchModal = ref<{
-    input: string,
+    input: string
     result: Item[]
   }>({
     input: '',
-    result: []
+    result: [],
   })
   // 加载数据
   const getData = () => {
@@ -43,10 +43,24 @@ export const useStore = defineStore('global', () => {
     } catch (e) {}
     console.log('获取到的列表：', data.value)
   }
+  const getDarkTheme = () => {
+    const storageDarkTheme = window.localStorage.getItem('darkTheme')
+    if (storageDarkTheme) {
+      if (storageDarkTheme === 'true') {
+        darkTheme.value = true
+      } else {
+        darkTheme.value = false
+      }
+    } else {
+      darkTheme.value = false
+    }
+  }
   getData()
+  getDarkTheme()
   watchEffect(() => {
     // 修改data后会立刻保存
     window.localStorage.setItem('data', JSON.stringify(data.value))
+    window.localStorage.setItem('darkTheme', darkTheme.value ? 'true' : 'false')
   })
   return {
     darkTheme,

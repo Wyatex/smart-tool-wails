@@ -45,12 +45,6 @@
 import { useStore } from '../store'
 const store = useStore()
 
-const showAdd = () => {
-  store.cateModal.title = '添加分类'
-  store.cateModal.label = ''
-  store.cateModal.prevLabel = ''
-  store.cateModal.isShow = true
-}
 const handleConfirm = () => {
   if (!store.cateModal.label) {
     window.$message.error('请输入分类名称')
@@ -86,7 +80,4 @@ const handleConfirm = () => {
   }
   store.cateModal.isShow = false
 }
-defineExpose({
-  showAdd,
-})
 </script>
