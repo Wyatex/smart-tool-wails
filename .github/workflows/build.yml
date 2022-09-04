@@ -30,7 +30,7 @@ jobs:
         uses: svenstaro/upx-action@v2
         with:
           file: build/bin/smart-tool.exe
-          args: -9 -o smart-tool-upx.exe
+          args: -9 -o build/bin/smart-tool-upx.exe
           strip: false
       - uses: actions/upload-artifact@v3
         with:
