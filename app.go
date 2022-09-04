@@ -46,10 +46,14 @@ func (a *App) Open(value string) string {
 
 func (a *App) Save(value string) string {
 	str, err := runtime.SaveFileDialog(a.ctx, runtime.SaveDialogOptions{
-		Title: "选择一个位置保存",
+		Title:           "选择一个位置保存",
+		DefaultFilename: "backup.json",
 	})
 	if err != nil {
 		return err.Error()
+	}
+	if str == "" {
+		return "已取消导入"
 	}
 	err = os.WriteFile(str, []byte(value), 0777)
 	if err != nil {
@@ -61,10 +65,21 @@ func (a *App) Save(value string) string {
 func (a *App) Load() LoadReturn {
 	str, err := runtime.OpenFileDialog(a.ctx, runtime.OpenDialogOptions{
 		Title: "选择已导出的文件",
+		Filters: []runtime.FileFilter{
+			{
+				DisplayName: "备份数据",
+				Pattern:     "*.json",
+			},
+		},
 	})
 	if err != nil {
 		return LoadReturn{
 			Err: err.Error(),
+		}
+	}
+	if str == "" {
+		return LoadReturn{
+			Err: "已取消导出",
 		}
 	}
 	bytes, err := os.ReadFile(str)

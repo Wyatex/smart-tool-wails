@@ -2,11 +2,11 @@ name: CI
 on:
   push:
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'
 jobs:
   Build:
-   runs-on: windows-latest
-   steps:
+    runs-on: windows-latest
+    steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
@@ -26,11 +26,22 @@ jobs:
       - name: Build App
         run: wails build
         shell: bash
+      - name: Compress binaries
+        uses: svenstaro/upx-action@v2
+        with:
+          file: build/bin/smart-tool.exe
+          args: -9 -o smart-tool-upx.exe
+          strip: false
       - uses: actions/upload-artifact@v3
         with:
           name: smart-tool
-          path: build/bin/smart-tool.exe
+          path: |
+            build/bin/smart-tool.exe
+            build/bin/smart-tool-upx.exe
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: build/bin/smart-tool.exe
+          body: 带upx后缀的是经过压缩的启动器，如果缺少运行时可以到微软官网下载：[webview2](https://developer.microsoft.com/zh-cn/microsoft-edge/webview2/#download-section)
+          files: |
+            build/bin/smart-tool.exe
+            build/bin/smart-tool-upx.exe
