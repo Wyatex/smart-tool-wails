@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"os/exec"
+	"strings"
 	"syscall"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -32,7 +33,8 @@ func (a *App) startup(ctx context.Context) {
 
 // open some uri
 func (a *App) Open(value string) string {
-	cmd := exec.Command("cmd", "/C", "start", value)
+	args := append([]string{"/C", "start"}, strings.Split(value, " ")...)
+	cmd := exec.Command("cmd", args...)
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	err := cmd.Run()
 	if err != nil {
