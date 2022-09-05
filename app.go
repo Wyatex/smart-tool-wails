@@ -33,8 +33,17 @@ func (a *App) startup(ctx context.Context) {
 
 // open some uri
 func (a *App) Open(value string) string {
-	args := append([]string{"/C", "start"}, strings.Split(value, " ")...)
-	cmd := exec.Command("cmd", args...)
+	args := strings.Split(value, " ")
+	if len(args) > 1 {
+		cmd := exec.Command(args[0], args[1:]...)
+		cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
+		err := cmd.Run()
+		if err != nil {
+			return err.Error()
+		}
+		return ""
+	}
+	cmd := exec.Command("cmd", "/C", "start", args[0])
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	err := cmd.Run()
 	if err != nil {
