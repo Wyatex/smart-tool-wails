@@ -31,10 +31,10 @@
 <script lang="ts" setup>
 import ItemCard from './ItemCard.vue'
 import ArrowDown from '~icons/tabler/chevron-down'
-import AddItem from '~icons/material-symbols/format-list-bulleted-add'
-import EditCate from '~icons/material-symbols/edit'
-import DeleteCate from '~icons/material-symbols/delete-forever-outline-rounded'
-import ClearCate from '~icons/icon-park-outline/clear'
+import AddItem from '~icons/line-md/document-add'
+import EditCate from '~icons/line-md/edit'
+import DeleteCate from '~icons/line-md/close-circle'
+import ClearCate from '~icons/line-md/document-remove'
 import { NIcon } from 'naive-ui'
 import { useStore } from '../store'
 const store = useStore()

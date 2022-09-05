@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed flex flex-col bottom-8 right-10">
+  <div class="fixed flex flex-col bottom-8 right-4">
     <n-tooltip placement="top-end" trigger="hover">
       <template #trigger>
         <n-button class="mb-2" circle size="large" @click="handleExport">
@@ -68,9 +68,9 @@ import { useStore } from '../store'
 import sun from '~icons/line-md/sun-rising-loop'
 import moon from '~icons/line-md/moon'
 import add from '~icons/carbon/category-new'
-import exportIcon from '~icons/uil/file-import'
-import importIcon from '~icons/uil/file-export'
-import clearIcon from '~icons/icon-park-outline/clear'
+import exportIcon from '~icons/line-md/download-outline-loop'
+import importIcon from '~icons/line-md/upload-outline-loop'
+import clearIcon from '~icons/carbon/clean'
 import { Load, Save } from '../../wailsjs/go/main/App'
 const store = useStore()
 const handleAddCate = () => {
@@ -108,6 +108,11 @@ const handleExport = () => {
         title: '导出成功',
         duration: 3000,
       })
+    } else if (err === '已取消导出') {
+      window.$notification.info({
+        title: '取消导出',
+        duration: 3000,
+      })
     } else {
       window.$notification.error({
         title: '导出失败',
@@ -119,6 +124,13 @@ const handleExport = () => {
 const handleImport = () => {
   Load().then((returnData) => {
     console.log(returnData)
+    if (returnData.err === '已取消导入') {
+      window.$notification.info({
+        title: '取消导入',
+        duration: 3000,
+      })
+      return
+    }
     if (returnData.err !== '') {
       window.$notification.error({
         title: '导入失败',

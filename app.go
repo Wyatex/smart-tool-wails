@@ -32,9 +32,6 @@ func (a *App) startup(ctx context.Context) {
 
 // open some uri
 func (a *App) Open(value string) string {
-	defer func() {
-		_ = recover()
-	}()
 	cmd := exec.Command("cmd", "/C", "start", value)
 	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	err := cmd.Run()
@@ -53,7 +50,7 @@ func (a *App) Save(value string) string {
 		return err.Error()
 	}
 	if str == "" {
-		return "已取消导入"
+		return "已取消导出"
 	}
 	err = os.WriteFile(str, []byte(value), 0777)
 	if err != nil {
@@ -79,7 +76,7 @@ func (a *App) Load() LoadReturn {
 	}
 	if str == "" {
 		return LoadReturn{
-			Err: "已取消导出",
+			Err: "已取消导入",
 		}
 	}
 	bytes, err := os.ReadFile(str)

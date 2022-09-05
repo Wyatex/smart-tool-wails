@@ -25,17 +25,21 @@
                   <n-p>点击右下角加号按钮添加分类，右键卡片编辑和删除</n-p>
                 </n-popover>
               </n-layout-header>
-              <n-layout-content class="flex-1 flex justify-center p-8 pt-95px">
-                <slot></slot>
-                
-                <n-layout-footer
-                  class="flex items-center justify-center fixed bottom-0 w-full"
+              <n-scrollbar>
+                <n-layout-content
+                  class="flex-1 flex justify-center p-8 mt-64px mb-2"
                 >
-                  <div class="flex items-center justify-center p-1">
-                    <n-p>Copyright ©2022 Wyatex</n-p>
-                  </div>
-                </n-layout-footer>
-              </n-layout-content>
+                  <slot></slot>
+
+                  <n-layout-footer
+                    class="flex items-center justify-center fixed bottom-0 w-full"
+                  >
+                    <div class="flex items-center justify-center p-1">
+                      <n-p>Copyright ©2022 Wyatex</n-p>
+                    </div>
+                  </n-layout-footer>
+                </n-layout-content>
+              </n-scrollbar>
             </n-layout>
             <naive-provider-content />
           </n-message-provider>

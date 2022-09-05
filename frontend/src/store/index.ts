@@ -60,6 +60,7 @@ export const useStore = defineStore('global', () => {
   watchEffect(() => {
     // 修改data后会立刻保存
     window.localStorage.setItem('data', JSON.stringify(data.value))
+    window.localStorage.setItem('dataVersion', 'v1') // 如果以后数据结构发生改变可以用这个进行自动化升级
     window.localStorage.setItem('darkTheme', darkTheme.value ? 'true' : 'false')
   })
   return {

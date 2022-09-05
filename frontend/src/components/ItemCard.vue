@@ -7,10 +7,7 @@
       @contextmenu="handleContextMenu"
       @click="open(item.value)"
     >
-      <div
-        class="w-full h-full flex-1 flex items-center justify-center"
-        
-      >
+      <div class="w-full h-full flex-1 flex items-center justify-center">
         <n-h4 class="m-0">{{ item.label }}</n-h4>
       </div>
     </n-card>
@@ -30,7 +27,12 @@
 <script lang="ts" setup>
 import { useStore } from '../store'
 import { Open } from '../../wailsjs/go/main/App'
-import arrow from '~icons/material-symbols/arrow-forward-rounded'
+import { NIcon } from 'naive-ui'
+import editIcon from '~icons/line-md/edit'
+import delIcon from '~icons/line-md/close-circle'
+import leftIcon from '~icons/line-md/chevron-small-left'
+import leftDoubleIcon from '~icons/line-md/chevron-small-double-left'
+import { getCateItemIndex } from '../utils'
 const props = defineProps<{
   item: Item
   cate: string
@@ -54,14 +56,48 @@ const open = (name: string) => {
     }
   })
 }
+const isTop = () => {
+  const indexs = getCateItemIndex(props.cate, props.item.label)
+  return indexs.itemIndex === 0
+}
+const isBottom = () => {
+  const indexs = getCateItemIndex(props.cate, props.item.label)
+  return indexs.itemIndex === store.data[indexs.cateIndex].list.length - 1
+}
 const options = [
   {
     label: '编辑',
     key: 'edit',
+    icon: () => h(NIcon, null, { default: () => h(editIcon) }),
   },
   {
     label: '删除',
     key: 'del',
+    icon: () => h(NIcon, null, { default: () => h(delIcon) }),
+  },
+  {
+    label: '上移',
+    key: 'up',
+    disabled: isTop(),
+    icon: () => h(NIcon, {class: 'rotate-90'}, { default: () => h(leftIcon) }),
+  },
+  {
+    label: '置顶',
+    key: 'top',
+    disabled: isTop(),
+    icon: () => h(NIcon, {class: 'rotate-90'}, { default: () => h(leftDoubleIcon) }),
+  },
+  {
+    label: '下移',
+    key: 'down',
+    disabled: isBottom(),
+    icon: () => h(NIcon, {class: 'rotate-270'}, { default: () => h(leftIcon) }),
+  },
+  {
+    label: '置底',
+    key: 'bottom',
+    disabled: isBottom(),
+    icon: () => h(NIcon, {class: 'rotate-270'}, { default: () => h(leftDoubleIcon) }),
   },
 ]
 const handleSelect = (key: string) => {
@@ -82,17 +118,42 @@ const handleSelect = (key: string) => {
       positiveText: '确定',
       negativeText: '不确定',
       onPositiveClick: () => {
-        const cateIndex = store.data.findIndex((v) => v.label === props.cate)
-        const itemIndex = store.data[cateIndex].list.findIndex(
-          (v) => v.label === props.item.label
-        )
-        store.data[cateIndex].list.splice(itemIndex, 1)
+        const indexs = getCateItemIndex(props.cate, props.item.label)
+        store.data[indexs.cateIndex].list.splice(indexs.itemIndex, 1)
         window.$notification.success({
           title: '删除成功',
           duration: 3000,
         })
       },
     })
+  } else if (key === 'up') {
+    const indexs = getCateItemIndex(props.cate, props.item.label)
+    const temp = store.data[indexs.cateIndex].list[indexs.itemIndex]
+    store.data[indexs.cateIndex].list[indexs.itemIndex] =
+      store.data[indexs.cateIndex].list[indexs.itemIndex - 1]
+    store.data[indexs.cateIndex].list[indexs.itemIndex - 1] = temp
+  } else if (key === 'top') {
+    const indexs = getCateItemIndex(props.cate, props.item.label)
+    const temp = store.data[indexs.cateIndex].list[indexs.itemIndex]
+    store.data[indexs.cateIndex].list[indexs.itemIndex] =
+      store.data[indexs.cateIndex].list[0]
+    store.data[indexs.cateIndex].list[0] = temp
+  } else if (key === 'down') {
+    const indexs = getCateItemIndex(props.cate, props.item.label)
+    const temp = store.data[indexs.cateIndex].list[indexs.itemIndex]
+    store.data[indexs.cateIndex].list[indexs.itemIndex] =
+      store.data[indexs.cateIndex].list[indexs.itemIndex + 1]
+    store.data[indexs.cateIndex].list[indexs.itemIndex + 1] = temp
+  } else if (key === 'bottom') {
+    const indexs = getCateItemIndex(props.cate, props.item.label)
+    const temp = store.data[indexs.cateIndex].list[indexs.itemIndex]
+    store.data[indexs.cateIndex].list[indexs.itemIndex] =
+      store.data[indexs.cateIndex].list[
+        store.data[indexs.cateIndex].list.length - 1
+      ]
+    store.data[indexs.cateIndex].list[
+      store.data[indexs.cateIndex].list.length - 1
+    ] = temp
   }
   showDropdown.value = false
 }
