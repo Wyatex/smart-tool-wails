@@ -1,6 +1,15 @@
 # smart-tool
 一个简单的快捷方式管理工具，目前只适用于Windows系统
 
+<p>
+  <a href="https://github.com/Wyatex/smart-tool/releases/latest">
+    <img src="https://img.shields.io/github/v/release/Wyatex/smart-tool" />
+  </a>
+  <a href="https://github.com/Wyatex/smart-tool/actions">
+    <img src="https://github.com/Wyatex/smart-tool/actions/workflows/build.yml/badge.svg" />
+  </a>
+</p>
+
 ## 技术栈
 
 - 语言：Go、TypeScript
