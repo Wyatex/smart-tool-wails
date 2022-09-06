@@ -3,22 +3,28 @@ import NaiveProvider from './components/NaiveProvider.vue'
 import { useStore } from './store'
 import CategoryList from './components/CategoryList.vue'
 const store = useStore()
-
-// import CardList from './components/CardList.vue';
-// setTimeout(() => {
-//   store.data = [
-//     {
-//       label: '123',
-//       list: [],
-//     },
-//   ]
-// }, 1000)
 </script>
 
 <template>
   <naive-provider class="h-full">
     <!-- <CardList /> -->
-    <category-list />
+    <category-list class="p-8" />
+    <div
+      v-if="store.data.length === 0"
+      class="w-full h-80vh flex justify-center items-center"
+    >
+      <n-result
+        title="空空如也"
+        description="这里应该是一片荒漠。"
+        size="huge"
+      >
+        <template #icon>
+          <n-icon style="width: 300px; height: 300px;">
+            <i-custom-empty class="text-300px" />
+          </n-icon>
+        </template>
+      </n-result>
+    </div>
   </naive-provider>
 </template>
 

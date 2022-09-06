@@ -5,7 +5,7 @@
         <n-button class="mb-2" circle size="large" @click="handleExport">
           <template #icon>
             <n-icon>
-              <export-icon />
+              <i-line-md-upload-outline-loop />
             </n-icon>
           </template>
         </n-button>
@@ -17,7 +17,7 @@
         <n-button class="mb-2" circle size="large" @click="handleImport">
           <template #icon>
             <n-icon>
-              <import-icon />
+              <i-line-md-download-outline-loop />
             </n-icon>
           </template>
         </n-button>
@@ -29,7 +29,7 @@
         <n-button class="mb-2" circle size="large" @click="clearAll">
           <template #icon>
             <n-icon>
-              <clear-icon />
+              <i-carbon-clean />
             </n-icon>
           </template>
         </n-button>
@@ -41,7 +41,7 @@
         <n-button class="mb-2" circle size="large" @click="handleAddCate">
           <template #icon>
             <n-icon>
-              <add />
+              <i-carbon-category-new />
             </n-icon>
           </template>
         </n-button>
@@ -53,8 +53,8 @@
         <n-button class="mb-2" circle size="large" @click="themeSwitch">
           <template #icon>
             <n-icon>
-              <sun v-if="!store.darkTheme" />
-              <moon v-else />
+              <i-line-md-sunny-outline-loop v-if="!store.darkTheme" />
+              <i-line-md-moon v-else />
             </n-icon>
           </template>
         </n-button>
@@ -65,12 +65,6 @@
 </template>
 <script lang="ts" setup>
 import { useStore } from '../store'
-import sun from '~icons/line-md/sun-rising-loop'
-import moon from '~icons/line-md/moon'
-import add from '~icons/carbon/category-new'
-import exportIcon from '~icons/line-md/download-outline-loop'
-import importIcon from '~icons/line-md/upload-outline-loop'
-import clearIcon from '~icons/carbon/clean'
 import { Load, Save } from '../../wailsjs/go/main/App'
 const store = useStore()
 const handleAddCate = () => {

@@ -12,7 +12,7 @@
         <n-button quaternary circle style="margin-left: 16px">
           <template #icon>
             <n-icon>
-              <ArrowDown />
+              <i-material-symbols-expand-circle-down-outline-rounded />
             </n-icon>
           </template>
         </n-button>
@@ -30,7 +30,6 @@
 </template>
 <script lang="ts" setup>
 import ItemCard from './ItemCard.vue'
-import ArrowDown from '~icons/tabler/chevron-down'
 import AddItem from '~icons/line-md/document-add'
 import EditCate from '~icons/line-md/edit'
 import DeleteCate from '~icons/line-md/close-circle'

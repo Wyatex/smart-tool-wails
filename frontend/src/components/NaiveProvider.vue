@@ -19,27 +19,26 @@
                 <n-popover placement="left" trigger="hover">
                   <template #trigger>
                     <n-icon>
-                      <question class="text-20px" />
+                      <i-ri-question-line class="text-20px" />
                     </n-icon>
                   </template>
                   <n-p>点击右下角加号按钮添加分类，右键卡片编辑和删除</n-p>
                 </n-popover>
               </n-layout-header>
-              <n-scrollbar>
+              <n-scrollbar class="w-full">
                 <n-layout-content
-                  class="flex-1 flex justify-center p-8 mt-64px mb-2"
+                  class="w-100vw flex-1 flex justify-center mt-64px mb-2"
                 >
                   <slot></slot>
-
-                  <n-layout-footer
-                    class="flex items-center justify-center fixed bottom-0 w-full"
-                  >
-                    <div class="flex items-center justify-center p-1">
-                      <n-p>Copyright ©2022 Wyatex</n-p>
-                    </div>
-                  </n-layout-footer>
                 </n-layout-content>
               </n-scrollbar>
+              <n-layout-footer
+                class="flex items-center justify-center fixed bottom-0 w-full"
+              >
+                <div class="flex items-center justify-center p-1">
+                  <n-p>Copyright ©2022 Wyatex</n-p>
+                </div>
+              </n-layout-footer>
             </n-layout>
             <naive-provider-content />
           </n-message-provider>
@@ -55,7 +54,6 @@
 <script lang="ts" setup>
 import { zhCN, dateZhCN, darkTheme } from 'naive-ui'
 import { useStore } from '../store'
-import question from '~icons/ri/question-line'
 import NaiveProviderContent from './NaiveProviderContent.vue'
 import CateModal from './CateModal.vue'
 import ItemModal from './ItemModal.vue'
