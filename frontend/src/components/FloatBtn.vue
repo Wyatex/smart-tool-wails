@@ -61,6 +61,18 @@
       </template>
       {{ store.darkTheme ? '切换到浅色模式' : '切换到深色模式' }}
     </n-tooltip>
+    <n-tooltip placement="top-end" trigger="hover">
+      <template #trigger>
+        <n-button class="mb-2" circle size="large" @click="store.screenLocked = true">
+          <template #icon>
+            <n-icon>
+              <i-material-symbols-lock-outline />
+            </n-icon>
+          </template>
+        </n-button>
+      </template>
+      锁屏
+    </n-tooltip>
   </div>
 </template>
 <script lang="ts" setup>

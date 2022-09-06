@@ -30,6 +30,7 @@ export const useStore = defineStore('global', () => {
     input: '',
     result: [],
   })
+  const screenLocked = ref(false)
   // 加载数据
   const getData = () => {
     try {
@@ -69,6 +70,7 @@ export const useStore = defineStore('global', () => {
     cateModal,
     searchModal,
     data,
+    screenLocked,
     getData,
   }
 })
