@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     ILineMdMoon: typeof import('~icons/line-md/moon')['default']
     ILineMdSunnyOutlineLoop: typeof import('~icons/line-md/sunny-outline-loop')['default']
     ILineMdUploadOutlineLoop: typeof import('~icons/line-md/upload-outline-loop')['default']
+    IMaterialSymbolsExpandCircleDownOutlineRounded: typeof import('~icons/material-symbols/expand-circle-down-outline-rounded')['default']
     IRiQuestionLine: typeof import('~icons/ri/question-line')['default']
     ItemCard: typeof import('./src/components/ItemCard.vue')['default']
     ItemModal: typeof import('./src/components/ItemModal.vue')['default']
