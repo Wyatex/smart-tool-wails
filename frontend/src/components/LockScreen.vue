@@ -1,26 +1,52 @@
 <template>
   <div class="w-100vw h-100vh relative">
     <div class="bg absolute w-100vw h-100vh"></div>
-    <n-tooltip placement="bottom" trigger="hover">
-      <template #trigger>
-        <div
-          class="absolute top-10vh left-[50%] translate-x-[-50%] cursor-pointer w-40px h-40px"
-          @click="store.screenLocked = false"
-        >
-          <n-icon class="w-40px h-40px">
-            <i-material-symbols-lock-open-outline-rounded class="text-40px" />
-          </n-icon>
-        </div>
-      </template>
-      解锁
-    </n-tooltip>
+    <div
+      class="absolute flex justify-between h-40px w-90px top-10vh left-[50%] translate-x-[-50%] cursor-pointer"
+    >
+      <n-tooltip placement="bottom" trigger="hover">
+        <template #trigger>
+          <div class="w-40px h-40px" @click="store.screenLocked = false">
+            <n-icon class="w-40px h-40px">
+              <i-material-symbols-lock-open-outline-rounded class="text-40px" />
+            </n-icon>
+          </div>
+        </template>
+        解锁
+      </n-tooltip>
+      <n-tooltip placement="bottom" trigger="hover">
+        <template #trigger>
+          <div
+            class="w-40px h-40px"
+            @click="store.fullscreen = !store.fullscreen"
+          >
+            <n-icon class="w-40px h-40px">
+              <i-material-symbols-fullscreen-rounded
+                class="text-40px"
+                v-if="!store.fullscreen"
+              />
+              <i-material-symbols-fullscreen-exit-rounded
+                class="text-40px"
+                v-else
+              />
+            </n-icon>
+          </div>
+        </template>
+        {{ store.fullscreen ? '取消全屏' : '全屏' }}
+      </n-tooltip>
+    </div>
+
     <div
       class="hitokoto absolute left-50vw top-50vh translate-x-[-50%] translate-y-[-50%]"
     >
-      <div class="absolute left-0 top-0 text-30px">『</div>
-      <span class="text-30px">{{ word }}</span>
-      <div class="absolute right-0 bottom-0 text-30px">』</div>
-      <div class="text-20px absolute right-5px top-80px">—— {{ fromWho }}「{{ from }}」</div>
+      <div class="relative">
+        <div class="absolute left-0 top-0 text-30px">『</div>
+        <div class="text-30px py-15px px-50px">{{ word }}</div>
+        <div class="absolute right-0 bottom-0 text-30px">』</div>
+      </div>
+      <div class="float-right text-20px mt-20px">
+        —— {{ fromWho }}「{{ from }}」
+      </div>
     </div>
     <div class="absolute bottom-60px left-60px">
       <div class="text-70px">{{ hour }}:{{ minute }}</div>
@@ -107,9 +133,15 @@ const { word, from, fromWho } = useHitokoto()
   }
 }
 
+@media screen and (max-width: 600px) {
+  .hitokoto {
+    width: 100%;
+  }
+}
+
 @media screen and (min-width: 600px) {
   .hitokoto {
-    width: 55%;
+    width: 60%;
   }
 }
 </style>

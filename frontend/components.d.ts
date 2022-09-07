@@ -20,6 +20,8 @@ declare module '@vue/runtime-core' {
     ILineMdSunnyOutlineLoop: typeof import('~icons/line-md/sunny-outline-loop')['default']
     ILineMdUploadOutlineLoop: typeof import('~icons/line-md/upload-outline-loop')['default']
     IMaterialSymbolsExpandCircleDownOutlineRounded: typeof import('~icons/material-symbols/expand-circle-down-outline-rounded')['default']
+    IMaterialSymbolsFullscreenExitRounded: typeof import('~icons/material-symbols/fullscreen-exit-rounded')['default']
+    IMaterialSymbolsFullscreenRounded: typeof import('~icons/material-symbols/fullscreen-rounded')['default']
     IMaterialSymbolsLockOpenOutlineRounded: typeof import('~icons/material-symbols/lock-open-outline-rounded')['default']
     IMaterialSymbolsLockOutline: typeof import('~icons/material-symbols/lock-outline')['default']
     IRiQuestionLine: typeof import('~icons/ri/question-line')['default']
