@@ -1,58 +1,62 @@
 <template>
-  <div class="w-100vw h-100vh relative">
-    <div class="bg absolute w-100vw h-100vh"></div>
-    <div
-      class="absolute flex justify-between h-40px w-90px top-10vh left-[50%] translate-x-[-50%] cursor-pointer"
-    >
-      <n-tooltip placement="bottom" trigger="hover">
-        <template #trigger>
-          <div class="w-40px h-40px" @click="store.screenLocked = false">
-            <n-icon class="w-40px h-40px">
-              <i-material-symbols-lock-open-outline-rounded class="text-40px" />
-            </n-icon>
-          </div>
-        </template>
-        解锁
-      </n-tooltip>
-      <n-tooltip placement="bottom" trigger="hover">
-        <template #trigger>
-          <div
-            class="w-40px h-40px"
-            @click="store.fullscreen = !store.fullscreen"
-          >
-            <n-icon class="w-40px h-40px">
-              <i-material-symbols-fullscreen-rounded
-                class="text-40px"
-                v-if="!store.fullscreen"
-              />
-              <i-material-symbols-fullscreen-exit-rounded
-                class="text-40px"
-                v-else
-              />
-            </n-icon>
-          </div>
-        </template>
-        {{ store.fullscreen ? '取消全屏' : '全屏' }}
-      </n-tooltip>
-    </div>
+  <n-layout>
+    <div class="w-100vw h-100vh relative">
+      <div class="bg absolute w-100vw h-100vh"></div>
+      <div
+        class="absolute flex justify-between h-40px w-90px top-10vh left-[50%] translate-x-[-50%] cursor-pointer"
+      >
+        <n-tooltip placement="bottom" trigger="hover">
+          <template #trigger>
+            <div class="w-40px h-40px" @click="store.screenLocked = false">
+              <n-icon class="w-40px h-40px">
+                <i-material-symbols-lock-open-outline-rounded
+                  class="text-40px"
+                />
+              </n-icon>
+            </div>
+          </template>
+          解锁
+        </n-tooltip>
+        <n-tooltip placement="bottom" trigger="hover">
+          <template #trigger>
+            <div
+              class="w-40px h-40px"
+              @click="store.fullscreen = !store.fullscreen"
+            >
+              <n-icon class="w-40px h-40px">
+                <i-material-symbols-fullscreen-rounded
+                  class="text-40px"
+                  v-if="!store.fullscreen"
+                />
+                <i-material-symbols-fullscreen-exit-rounded
+                  class="text-40px"
+                  v-else
+                />
+              </n-icon>
+            </div>
+          </template>
+          {{ store.fullscreen ? '取消全屏' : '全屏' }}
+        </n-tooltip>
+      </div>
 
-    <div
-      class="hitokoto absolute left-50vw top-50vh translate-x-[-50%] translate-y-[-50%]"
-    >
-      <div class="relative">
-        <div class="absolute left-0 top-0 text-30px">『</div>
-        <div class="text-30px py-15px px-50px">{{ word }}</div>
-        <div class="absolute right-0 bottom-0 text-30px">』</div>
+      <div
+        class="hitokoto absolute left-50vw top-50vh translate-x-[-50%] translate-y-[-50%]"
+      >
+        <div class="relative cursor-pointer" @click="handleCopy">
+          <div class="absolute left-0 top-0 text-30px">『</div>
+          <div class="text-30px py-15px px-50px">{{ word }}</div>
+          <div class="absolute right-0 bottom-0 text-30px">』</div>
+        </div>
+        <div class="float-right text-20px mt-20px">
+          —— {{ fromWho }}「{{ from }}」
+        </div>
       </div>
-      <div class="float-right text-20px mt-20px">
-        —— {{ fromWho }}「{{ from }}」
+      <div class="absolute bottom-60px left-60px">
+        <div class="text-70px">{{ hour }}:{{ minute }}</div>
+        <div class="text-40px">{{ month }}月{{ day }}号，星期{{ week }}</div>
       </div>
     </div>
-    <div class="absolute bottom-60px left-60px">
-      <div class="text-70px">{{ hour }}:{{ minute }}</div>
-      <div class="text-40px">{{ month }}月{{ day }}号，星期{{ week }}</div>
-    </div>
-  </div>
+  </n-layout>
 </template>
 <script lang="ts" setup>
 import { useTime } from '../hooks/useTime'
@@ -62,11 +66,38 @@ import { useHitokoto } from '../hooks/useHitokoto'
 const store = useStore()
 const { month, day, hour, minute, week } = useTime()
 const { word, from, fromWho } = useHitokoto()
-</script>
-<style scoped>
-.bg {
-  background-color: #e493d0;
-  background-image: radial-gradient(
+const handleCopy = () => {
+  navigator.clipboard.writeText(`${word} —— ${fromWho}「${from}」`).then(() => {
+    window.$message.success('已复制到剪贴板')
+  })
+}
+const bgc = computed(() => {
+  return store.darkTheme ? '#101014' : '#e493d0'
+})
+const bgi = computed(() => {
+  return store.darkTheme
+    ? `radial-gradient(
+      closest-side,
+      rgba(51, 8, 103, 0.8),
+      rgba(235, 105, 78, 0)
+    ),
+    radial-gradient(closest-side, rgba(255, 209, 253, 0.2), rgba(243, 11, 164, 0)),
+    radial-gradient(
+      closest-side,
+      rgba(244, 246, 138, 0.1),
+      rgba(254, 234, 131, 0)
+    ),
+    radial-gradient(
+      closest-side,
+      rgba(235, 188, 170, 0.2),
+      rgba(170, 142, 245, 0)
+    ),
+    radial-gradient(
+      closest-side,
+      rgba(187, 106, 192, 0.5),
+      rgba(248, 192, 147, 0)
+    )`
+    : `radial-gradient(
       closest-side,
       rgba(235, 105, 78, 1),
       rgba(235, 105, 78, 0)
@@ -86,13 +117,19 @@ const { word, from, fromWho } = useHitokoto()
       closest-side,
       rgba(248, 192, 147, 1),
       rgba(248, 192, 147, 0)
-    );
+    )`
+})
+</script>
+<style scoped>
+.bg {
+  background-color: v-bind(bgc);
+  background-image: v-bind(bgi);
   background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax,
     110vmax 110vmax, 90vmax 90vmax;
   background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax,
     -30vmax -10vmax, 50vmax 50vmax;
   background-repeat: no-repeat;
-  animation: 10s movement linear infinite;
+  animation: 15s movement ease-in-out infinite;
 }
 .bg::after {
   content: '';
@@ -102,7 +139,7 @@ const { word, from, fromWho } = useHitokoto()
   height: 100%;
   top: 0;
   left: 0;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(10px);
 }
 @keyframes movement {
@@ -141,7 +178,7 @@ const { word, from, fromWho } = useHitokoto()
 
 @media screen and (min-width: 600px) {
   .hitokoto {
-    width: 60%;
+    width: 50%;
   }
 }
 </style>

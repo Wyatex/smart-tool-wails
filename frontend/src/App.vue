@@ -1,16 +1,12 @@
-<script lang="ts" setup>
-import NaiveProvider from './components/NaiveProvider.vue'
-import { useStore } from './store'
-import CategoryList from './components/CategoryList.vue'
-import LockScreen from './components/LockScreen.vue'
-const store = useStore()
-</script>
-
 <template>
-  <transition :name="store.screenLocked ? 'fade-top' : 'fade-bottom'" mode="out-in" appear>
-    <lock-screen v-if="store.screenLocked" />
-    <div v-else>
-      <naive-provider class="h-100vh">
+  <naive-provider>
+    <transition
+      :name="store.screenLocked ? 'fade-top' : 'fade-bottom'"
+      mode="out-in"
+      appear
+    >
+      <lock-screen v-if="store.screenLocked" />
+      <div class="h-100vh" v-else>
         <category-list class="p-8" />
         <div
           v-if="store.data.length === 0"
@@ -28,10 +24,18 @@ const store = useStore()
             </template>
           </n-result>
         </div>
-      </naive-provider>
-    </div>
-  </transition>
+      </div>
+    </transition>
+  </naive-provider>
 </template>
+
+<script lang="ts" setup>
+import NaiveProvider from './components/NaiveProvider.vue'
+import { useStore } from './store'
+import CategoryList from './components/CategoryList.vue'
+import LockScreen from './components/LockScreen.vue'
+const store = useStore()
+</script>
 
 <style>
 #logo {
@@ -75,5 +79,4 @@ const store = useStore()
   opacity: 0;
   transform: translateY(-8%);
 }
-
 </style>
