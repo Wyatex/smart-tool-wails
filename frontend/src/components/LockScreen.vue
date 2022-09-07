@@ -67,7 +67,7 @@ const store = useStore()
 const { month, day, hour, minute, week } = useTime()
 const { word, from, fromWho } = useHitokoto()
 const handleCopy = () => {
-  navigator.clipboard.writeText(`${word} —— ${fromWho}「${from}」`).then(() => {
+  navigator.clipboard.writeText(`${word.value} —— ${fromWho.value}「${from.value}」`).then(() => {
     window.$message.success('已复制到剪贴板')
   })
 }
