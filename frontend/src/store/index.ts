@@ -1,6 +1,12 @@
 import { createPinia, defineStore } from 'pinia'
 import { ref, watchEffect } from 'vue'
-import { WindowFullscreen, WindowSetDarkTheme, WindowSetLightTheme, WindowUnfullscreen } from '../../wailsjs/runtime/runtime'
+import {
+  WindowFullscreen,
+  WindowSetDarkTheme,
+  WindowSetLightTheme,
+  WindowUnfullscreen,
+  WindowSetBackgroundColour,
+} from '../../wailsjs/runtime/runtime'
 
 export const store = createPinia()
 
@@ -65,6 +71,9 @@ export const useStore = defineStore('global', () => {
     window.localStorage.setItem('dataVersion', 'v1') // 如果以后数据结构发生改变可以用这个进行自动化升级
     window.localStorage.setItem('darkTheme', darkTheme.value ? 'true' : 'false')
     darkTheme.value ? WindowSetDarkTheme() : WindowSetLightTheme()
+    darkTheme.value
+      ? WindowSetBackgroundColour(24, 24, 28, 1)
+      : WindowSetBackgroundColour(255, 255, 255, 1)
     fullscreen.value ? WindowFullscreen() : WindowUnfullscreen()
   })
   return {

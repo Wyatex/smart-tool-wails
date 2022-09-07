@@ -52,8 +52,8 @@
         </div>
       </div>
       <div class="absolute bottom-60px left-60px">
-        <div class="text-70px">{{ hour }}:{{ minute }}</div>
-        <div class="text-40px">{{ month }}月{{ day }}号，星期{{ week }}</div>
+        <div class="text-70px text-left">{{ hour }}:{{ minute }}</div>
+        <div class="text-40px text-left">{{ month }}月{{ day }}号，星期{{ week }}</div>
       </div>
     </div>
   </n-layout>
@@ -72,7 +72,7 @@ const handleCopy = () => {
   })
 }
 const bgc = computed(() => {
-  return store.darkTheme ? '#101014' : '#e493d0'
+  return store.darkTheme ? '#18181c' : '#e493d0'
 })
 const bgi = computed(() => {
   return store.darkTheme

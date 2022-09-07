@@ -1,5 +1,5 @@
 <template>
-  <naive-provider>
+  <naive-provider class="max-h-100vh overflow-hidden">
     <transition
       :name="store.screenLocked ? 'fade-top' : 'fade-bottom'"
       mode="out-in"
@@ -7,7 +7,7 @@
     >
       <lock-screen v-if="store.screenLocked" />
       <div class="h-100vh" v-else>
-        <category-list class="p-8" />
+        <category-list />
         <div
           v-if="store.data.length === 0"
           class="w-full h-80vh flex justify-center items-center"

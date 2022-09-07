@@ -16,8 +16,8 @@
         <n-p>点击右下角加号按钮添加分类，右键卡片编辑和删除</n-p>
       </n-popover>
     </n-layout-header>
-    <n-scrollbar class="w-full">
-      <n-layout-content class="w-100vw flex-1 flex justify-center mt-64px mb-2">
+    <n-scrollbar>
+      <n-layout-content class="flex-1 flex justify-center mt-64px mb-2 p-8">
         <n-space>
           <category-card
             v-for="item in store.data"
