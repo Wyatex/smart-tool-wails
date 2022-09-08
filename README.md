@@ -1,5 +1,5 @@
 # smart-tool
-一个简单的快捷方式管理工具，目前只适用于Windows系统
+一个简单的快捷方式管理工具，可以将一些常用文件、文件夹、网址、脚本加到里面进行管理，目前只适用于Windows系统。
 
 <p>
   <a href="https://github.com/Wyatex/smart-tool/releases/latest">
