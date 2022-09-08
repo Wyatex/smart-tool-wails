@@ -25,7 +25,7 @@ export function useHitokoto() {
 
   onMounted(() => {
     clearInterval(timer)
-    timer = setInterval(() => updateWord(), 5000)
+    timer = setInterval(() => updateWord(), 7000)
   })
 
   onUnmounted(() => {
