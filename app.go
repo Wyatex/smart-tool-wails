@@ -3,9 +3,6 @@ package main
 import (
 	"context"
 	"os"
-	"os/exec"
-	"strings"
-	"syscall"
 
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -29,27 +26,6 @@ func NewApp() *App {
 // so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
-}
-
-// open some uri
-func (a *App) Open(value string) string {
-	args := strings.Split(value, " ")
-	if len(args) > 1 {
-		cmd := exec.Command(args[0], args[1:]...)
-		cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-		err := cmd.Run()
-		if err != nil {
-			return err.Error()
-		}
-		return ""
-	}
-	cmd := exec.Command("cmd", "/C", "start", args[0])
-	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
-	err := cmd.Run()
-	if err != nil {
-		return err.Error()
-	}
-	return ""
 }
 
 func (a *App) Save(value string) string {

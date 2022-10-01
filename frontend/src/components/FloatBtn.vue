@@ -1,6 +1,6 @@
 <template>
   <div class="fixed flex flex-col bottom-8 right-4">
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button class="mb-2" circle size="large" @click="handleExport">
           <template #icon>
@@ -12,7 +12,7 @@
       </template>
       导出到文件
     </n-tooltip>
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button class="mb-2" circle size="large" @click="handleImport">
           <template #icon>
@@ -24,7 +24,7 @@
       </template>
       从文件导入
     </n-tooltip>
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button class="mb-2" circle size="large" @click="clearAll">
           <template #icon>
@@ -36,7 +36,7 @@
       </template>
       清除所有数据
     </n-tooltip>
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button class="mb-2" circle size="large" @click="handleAddCate">
           <template #icon>
@@ -48,7 +48,7 @@
       </template>
       添加一个分类
     </n-tooltip>
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button class="mb-2" circle size="large" @click="themeSwitch">
           <template #icon>
@@ -61,7 +61,7 @@
       </template>
       {{ store.darkTheme ? '切换到浅色模式' : '切换到深色模式' }}
     </n-tooltip>
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button
           class="mb-2"
@@ -78,7 +78,7 @@
       </template>
       锁屏
     </n-tooltip>
-    <n-tooltip placement="top-end" trigger="hover">
+    <n-tooltip placement="left" trigger="hover">
       <template #trigger>
         <n-button
           class="mb-2"

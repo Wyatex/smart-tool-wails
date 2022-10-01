@@ -25,3 +25,5 @@
 2. 安装 wails 工具：`go install github.com/wailsapp/wails/v2/cmd/wails@latest`
 3. 下载项目，命令行打开到项目目录
 4. 启动 dev：`wails dev`， 打包：`wails build`，建议安装 upx，打包时加上`-upx`进行压缩能大幅减少体积
+
+> To Linux用户：编译可能需要先cd到frontend，然后执行pnpm i和pnpm build，再执行wails dev或者wails build
