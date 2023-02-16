@@ -1,6 +1,8 @@
 # smart-tool
 一个简单的快捷方式管理工具，可以将一些常用文件、文件夹、网址、脚本加到里面进行管理，目前只适用于Windows系统。
 
+> 基于Tauri的版本已经迁移完成，支持linux、windows、mac，可以去看看，无Go、Rust代码[smart-tool-tauri](https://github.com/Wyatex/smart-tool-tauri)
+
 如果加进去的是某些文件路径比如`c:\myDoc.docx`文件将会调用系统默认打开程序进行打开，如果是目录就会直接打开文件管理器并进入某个目录，如果是网址将会使用默认浏览器打开，如果需要选择某个浏览器，可以将浏览器安装路径添加到PATH，然后用类似`chrome https://baidu.com`的格式填入即可选择浏览器，当然也可以编写一些脚本比如js脚本，通过node快速调用：`node c:\test.js`。
 
 <p>
